@@ -30,10 +30,11 @@ roslaunch omni_common omni_state.launch # topic
 ```
 
 # Ros package
-clone the following package from github:
-https://github.com/bharatm11/Geomagic_Touch_ROS_Drivers
-
+clone this repository from github to `catkin_ws/src/`:
+```
+git clone git@github.com:wangzivector/Touch_ROS_Server.git
 catkin_make
+```
  
 # Note
 - remember to install the full-version ROS to use the Ros package
