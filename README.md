@@ -5,36 +5,36 @@
 - Force feedback
 
 ## Install Old Touch driver and OpenHaptics (identify as: /dev/ttyACM0, newer version Touch bought from 2023 see next tag)
-1. Download two scripts from : https://github.com/jhu-cisst-external/3ds-touch-openhaptics
-a. install-3ds-openhaptics-3.4.sh
-b. install-3ds-touch-drivers-2019.sh
+1. Download two scripts from (https://github.com/jhu-cisst-external/3ds-touch-openhaptics): 
+(a). install-3ds-openhaptics-3.4.sh
+(b). install-3ds-touch-drivers-2019.sh
+```
+bash ./install-3ds-openhaptics-3.4.sh
+bash ./install-3ds-touch-drivers-2019.sh
+```
+Not to reboot during installation, but Log Out and Log In again.
 
-2. Not to reboot during installation, but Log Out and Log In again. and set the ENV. PATH by:
+2. Set the Eev Path by:
 ```
 sudo -H gedit /etc/environment
 ```
-add the following line:
+in gedit add the following line:
 ```
 GTDD_HOME="/usr/share/3DSystems"
 ```
 
-3. every time add 777 admin to the ttyACM0
+3. Every time add 777 admin to the ttyACM0 when link Touch device:
 ```
 sudo chmod 777 /dev/ttyACM0
 ```
-or add the user to permanent mode:
-```
-sudo gpasswd -a <username> dialout 
-```
 
-4. add `Default Device.config` to path `/usr/share/3DSystems/config/`.
-Or change its admins as (There will be a new `Default Device.config` if running with `sudo Touch_Setup`):
+4. (There will be a new `Default Device.config` if running with `sudo Touch_Setup`) change its admins using the following line:
 ```
 sudo chmod 777 Default Device.config
 ```
 (This intriguing steps are to create a non-sudo running files for roslaunch)
 
-5. Run `Touch_Setup`(without sudo), see the serial number correctly, then CLICK `apply` and `ok`. Check the above .config file overide with correct serial number.
+5. Run `Touch_Setup`(without sudo), check the serial number is indentied correctly in GUI. Then CLICK `apply` and `ok`. Check the above .config file overide with correct serial number.
 
 6. Test the device by run `Touch_Diagnostic`(without sudo), click different tags to test.
 
