@@ -14,4 +14,5 @@
       <param name="units" value="$(arg units)"/>
     </node>
   </group>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find omni_common)/launch/omni_state.rviz" required="true" />
 </launch>
