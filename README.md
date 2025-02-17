@@ -84,9 +84,35 @@ sudo apt-get install libncurses5-dev
 
 7. Run roslaunch package
 ```
-roslaunch omni_common omni.launch # rviz mode with force
-roslaunch omni_common omni_state.launch # topic
+roslaunch omni_common omni_state.launch # publish pose and listen to force cmd.
+# roslaunch omni_common omni.launch
 ```
 
+## Pose Sensing and Force Feedback
+There are two topics for publishing the Touch pose and exerting three-dimensional force:
+```python
+### Pulishing pose
+rostopic echo /phantom/phantom/pose
+
+### Exert force output:
+# Bash cmd:
+rostopic pub /phantom/phantom/force_feedback omni_msgs/OmniFeedback "{force: {x: 1.0, y: 0.0, z: 0.0}, position: {x: 1.0, y: 0.0, z: 0.0}}"
+# Python code:
+from omni_msgs.msg import OmniFeedback
+self.pub_force_feedback = rospy.Publisher("/phantom/phantom/force_feedback", OmniFeedback, queue_size=1)
+def touch_force_feedback(self, force, position):
+    # rostopic pub /phantom/phantom/force_feedback omni_msgs/OmniFeedback
+    # "{force: {x: 1.0, y: .0, z: 0.0}, position: {x: 0.240, y: 0.150, z: 0.160}}"
+    fp = OmniFeedback()
+    fp.force.x = force[0]
+    fp.force.y = force[1]
+    fp.force.z = force[2]
+    fp.position.x = position[0]
+    fp.position.y = position[1]
+    fp.position.z = position[2]
+    self.pub_force_feedback.publish(fp)
+```
+
+
 ## Note
-- remember to install the full-version ROS to use the Ros package
+- remember to install the full-version ROS to use this ROS package
